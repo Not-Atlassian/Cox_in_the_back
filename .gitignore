@@ -67,3 +67,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+#ignore app settings
+appsettings.json

@@ -41,5 +41,17 @@ namespace WebApi.Repository
         {
             return await _context.Sprints.FindAsync(id);
         }
+
+        public async Task<Sprint> Update(Sprint entity)
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+
+        public async Task<IEnumerable<Sprint>> GetPaginated(int page, int pageSize)
+        {
+            return await _context.Sprints.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+        }
     }
 }

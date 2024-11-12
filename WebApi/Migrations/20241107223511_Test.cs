@@ -11,7 +11,7 @@ namespace WebApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Teams",
+                name: "Team",
                 columns: table => new
                 {
                     TeamId = table.Column<int>(type: "int", nullable: false)
@@ -22,7 +22,7 @@ namespace WebApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Teams", x => x.TeamId);
+                    table.PrimaryKey("PK_Team", x => x.TeamId);
                 });
 
             migrationBuilder.CreateTable(
@@ -39,7 +39,7 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserTeams",
+                name: "UserTeam",
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false),
@@ -47,15 +47,15 @@ namespace WebApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserTeams", x => new { x.UserId, x.TeamId });
+                    table.PrimaryKey("PK_UserTeam", x => new { x.UserId, x.TeamId });
                     table.ForeignKey(
-                        name: "FK_UserTeams_Teams_TeamId",
+                        name: "FK_UserTeam_Team_TeamId",
                         column: x => x.TeamId,
-                        principalTable: "Teams",
+                        principalTable: "Team",
                         principalColumn: "TeamId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserTeams_Users_UserId",
+                        name: "FK_UserTeam_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -63,8 +63,8 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTeams_TeamId",
-                table: "UserTeams",
+                name: "IX_UserTeam_TeamId",
+                table: "UserTeam",
                 column: "TeamId");
         }
 
@@ -72,10 +72,10 @@ namespace WebApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UserTeams");
+                name: "UserTeam");
 
             migrationBuilder.DropTable(
-                name: "Teams");
+                name: "Team");
 
             migrationBuilder.DropTable(
                 name: "Users");

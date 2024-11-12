@@ -9,19 +9,19 @@ public class JyrosDbContext : DbContext
     {
     }
 
-    public DbSet<Domain.User> Users { get; set; }
-    public DbSet<Domain.Teams> Teams { get; set; }
-    public DbSet<Domain.UserTeams> UserTeams { get; set; }
+    public DbSet<Model.User> Users { get; set; }
+    public DbSet<Model.Teams> Teams { get; set; }
+    public DbSet<Model.UserTeams> UserTeams { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Domain.User>(entity =>
+        modelBuilder.Entity<Model.User>(entity =>
         {
             entity.HasKey(e => e.UserId);
             entity.Property(e => e.Username).IsRequired();
         });
 
-        modelBuilder.Entity<Domain.Teams>(entity =>
+        modelBuilder.Entity<Model.Teams>(entity =>
         {
             entity.HasKey(e => e.TeamId);
             entity.Property(e => e.TeamName).IsRequired();
@@ -29,7 +29,7 @@ public class JyrosDbContext : DbContext
             entity.Property(e => e.TeamLeaderId).IsRequired();
         });
 
-        modelBuilder.Entity<Domain.UserTeams>(entity =>
+        modelBuilder.Entity<Model.UserTeams>(entity =>
         {
             entity.HasKey(e => new { e.UserId, e.TeamId });
             entity.HasOne(e => e.User).WithMany().HasForeignKey(e => e.UserId);

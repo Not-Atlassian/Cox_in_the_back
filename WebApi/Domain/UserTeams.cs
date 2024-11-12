@@ -1,6 +1,6 @@
 using System;
 
-namespace WebApi.Domain;
+namespace WebApi.Model;
 
 public class UserTeams
 {

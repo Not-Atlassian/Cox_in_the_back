@@ -24,7 +24,7 @@ namespace WebApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("WebApi.Domain.Teams", b =>
+            modelBuilder.Entity("WebApi.Model.Teams", b =>
                 {
                     b.Property<int>("TeamId")
                         .ValueGeneratedOnAdd()
@@ -48,7 +48,7 @@ namespace WebApi.Migrations
                     b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("WebApi.Domain.User", b =>
+            modelBuilder.Entity("WebApi.Model.User", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
@@ -65,7 +65,7 @@ namespace WebApi.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("WebApi.Domain.UserTeams", b =>
+            modelBuilder.Entity("WebApi.Model.UserTeams", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -80,15 +80,15 @@ namespace WebApi.Migrations
                     b.ToTable("UserTeams");
                 });
 
-            modelBuilder.Entity("WebApi.Domain.UserTeams", b =>
+            modelBuilder.Entity("WebApi.Model.UserTeams", b =>
                 {
-                    b.HasOne("WebApi.Domain.Teams", "Team")
+                    b.HasOne("WebApi.Model.Teams", "Team")
                         .WithMany()
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebApi.Domain.User", "User")
+                    b.HasOne("WebApi.Model.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

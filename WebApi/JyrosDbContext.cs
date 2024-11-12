@@ -31,7 +31,7 @@ public class JyrosDbContext : DbContext
             entity.Property(e => e.TeamLeaderId).IsRequired();
         });
 
-    
+
 
 
     }

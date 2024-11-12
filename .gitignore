@@ -68,6 +68,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 /.vs
+/WebApi/.vs
 /WebApi/.vs/WebApi/CopilotIndices/0.2.1657.32929
 /WebApi/.vs/WebApi/FileContentIndex
 /WebApi/.vs/WebApi/copilot-chat/6ceaa888/sessions

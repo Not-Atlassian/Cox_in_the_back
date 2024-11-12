@@ -67,3 +67,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+/.vs
+/WebApi/.vs/WebApi/CopilotIndices/0.2.1657.32929
+/WebApi/.vs/WebApi/FileContentIndex

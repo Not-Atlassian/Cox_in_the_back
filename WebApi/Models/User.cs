@@ -9,8 +9,6 @@ public partial class User
 
     public string Username { get; set; } = null!;
 
-    public virtual ICollection<Epic> Epics { get; set; } = new List<Epic>();
-
     public virtual ICollection<Story> Stories { get; set; } = new List<Story>();
 
     public virtual ICollection<Team> Teams { get; set; } = new List<Team>();

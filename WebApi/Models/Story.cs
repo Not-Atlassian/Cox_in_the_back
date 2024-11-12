@@ -13,7 +13,7 @@ public partial class Story
 
     public string? Status { get; set; }
 
-    public int? EpicId { get; set; }
+    public int? ParentId { get; set; }
 
     public int? SprintId { get; set; }
 
@@ -23,7 +23,9 @@ public partial class Story
 
     public virtual User? CreatedByNavigation { get; set; }
 
-    public virtual Epic? Epic { get; set; }
+    public virtual ICollection<Story> InverseParent { get; set; } = new List<Story>();
+
+    public virtual Story? Parent { get; set; }
 
     public virtual Sprint? Sprint { get; set; }
 

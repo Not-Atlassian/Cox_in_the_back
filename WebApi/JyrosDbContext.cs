@@ -10,8 +10,10 @@ public class JyrosDbContext : DbContext
     }
 
     public DbSet<Model.User> Users { get; set; }
-    public DbSet<Model.Team> Team { get; set; }
-    public DbSet<Model.UserTeam> UserTeam { get; set; }
+    public DbSet<Model.Team> Teams { get; set; }
+    public DbSet<Model.Sprint> Sprints { get; set; }
+    public DbSet<Model.Epic> Epics { get; set; }
+    public DbSet<Model.Story> Stories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -29,13 +31,9 @@ public class JyrosDbContext : DbContext
             entity.Property(e => e.TeamLeaderId).IsRequired();
         });
 
-        modelBuilder.Entity<Model.UserTeam>(entity =>
-        {
-            entity.HasKey(e => new { e.UserId, e.TeamId });
-            entity.HasOne(e => e.User).WithMany().HasForeignKey(e => e.UserId);
-            entity.HasOne(e => e.Team).WithMany().HasForeignKey(e => e.TeamId);
+    
 
-        });
+
     }
 
 }

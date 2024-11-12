@@ -1,8 +1,8 @@
-using System;
-
 namespace WebApi.Model;
 
-public class Teams
+using System;
+
+public class Team
 {
     // Primary Key team_id
     public int TeamId { get; set; }

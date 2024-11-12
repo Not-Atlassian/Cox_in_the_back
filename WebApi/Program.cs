@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<JyrosContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("JyrosContext"));
+    options.UseSqlServer(builder.Configuration["JyrosContext"]);
 });
 
 var app = builder.Build();

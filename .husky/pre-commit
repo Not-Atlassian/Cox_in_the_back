@@ -1,6 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-cd WebApi && dotnet dotnet-format WebApi.sln --check
+cd WebApi && dotnet dotnet format WebApi.sln 
 
 echo 'Welcome to pre-commit git hook with Husky.Net'

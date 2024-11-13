@@ -19,7 +19,4 @@ public partial class Sprint
 
     public int? TeamId { get; set; }
 
-    public virtual ICollection<Story> Stories { get; set; } = new List<Story>();
-
-    public virtual Team? Team { get; set; }
 }

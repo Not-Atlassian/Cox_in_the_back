@@ -13,9 +13,4 @@ public partial class Team
 
     public int? TeamLeadId { get; set; }
 
-    public virtual ICollection<Sprint> Sprints { get; set; } = new List<Sprint>();
-
-    public virtual User? TeamLead { get; set; }
-
-    public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

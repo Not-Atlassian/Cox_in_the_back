@@ -27,7 +27,7 @@ namespace WebApi.Controllers
         {
             
             var team = await _teamRepository.GetById(teamId);
-            return Ok(team.Users);
+            return Ok(team);
         }
     }
 }

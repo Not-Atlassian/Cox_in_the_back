@@ -20,14 +20,4 @@ public partial class Story
     public int? CreatedBy { get; set; }
 
     public int? StoryPoints { get; set; }
-
-    public virtual User? CreatedByNavigation { get; set; }
-
-    public virtual ICollection<Story> InverseParent { get; set; } = new List<Story>();
-
-    public virtual Story? Parent { get; set; }
-
-    public virtual Sprint? Sprint { get; set; }
-
-    public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

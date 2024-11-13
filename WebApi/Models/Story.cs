@@ -5,6 +5,8 @@ namespace WebApi.Models;
 
 public partial class Story
 {
+    [System.Text.Json.Serialization.JsonIgnore]
+
     public int StoryId { get; set; }
 
     public string Title { get; set; } = null!;
@@ -21,13 +23,19 @@ public partial class Story
 
     public int? StoryPoints { get; set; }
 
+    [System.Text.Json.Serialization.JsonIgnore]
+
     public virtual User? CreatedByNavigation { get; set; }
+    [System.Text.Json.Serialization.JsonIgnore]
 
     public virtual ICollection<Story> InverseParent { get; set; } = new List<Story>();
+    [System.Text.Json.Serialization.JsonIgnore]
 
     public virtual Story? Parent { get; set; }
+    [System.Text.Json.Serialization.JsonIgnore]
 
     public virtual Sprint? Sprint { get; set; }
+    [System.Text.Json.Serialization.JsonIgnore]
 
     public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

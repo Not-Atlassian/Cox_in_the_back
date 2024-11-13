@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using WebApi.Models;
 
-namespace WebApi.Models;
+namespace WebApi.Context;
 
 public partial class JyrosContext : DbContext
 {

@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using WebApi.Models;
+using WebApi.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,3 +31,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using WebApi.Models;
+using WebApi.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +13,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<JyrosContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("JyrosContext"));
+    Console.WriteLine("Connected to the database");
+    Console.WriteLine(builder.Configuration.GetConnectionString("JyrosContext"));
 });
 
 var app = builder.Build();
@@ -31,3 +33,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

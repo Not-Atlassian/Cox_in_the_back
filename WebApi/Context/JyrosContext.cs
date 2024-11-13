@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using WebApi.Models;
 
-namespace WebApi.Models;
+namespace WebApi.Context;
 
 public partial class JyrosContext : DbContext
 {
@@ -22,6 +23,10 @@ public partial class JyrosContext : DbContext
     public virtual DbSet<Team> Teams { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=jyros.database.windows.net;Database=Jyros;User Id=jyros-admin;Password=Gev$sgaNKPFG9Z4;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -47,11 +52,6 @@ public partial class JyrosContext : DbContext
             entity.HasOne(d => d.Team).WithMany(p => p.Sprints)
                 .HasForeignKey(d => d.TeamId)
                 .HasConstraintName("FK__Sprints__team_id__693CA210");
-
-            //story sprint relation
-            entity.HasMany(d => d.Stories).WithOne(p => p.Sprint)
-                .HasForeignKey(d => d.SprintId)
-                .HasConstraintName("FK__Stories__sprint___6EF57B66");
         });
 
         modelBuilder.Entity<Story>(entity =>
@@ -124,30 +124,6 @@ public partial class JyrosContext : DbContext
             entity.HasOne(d => d.TeamLead).WithMany(p => p.Teams)
                 .HasForeignKey(d => d.TeamLeadId)
                 .HasConstraintName("FK__Teams__team_lead__60A75C0F");
-
-            entity.HasMany(d => d.Users).WithMany(p => p.Teams)
-                .UsingEntity<Dictionary<string, object>>(
-                    "UsersTeam",
-                    r => r.HasOne<User>().WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__UsersTeam__user___6477ECF3"),
-                    l => l.HasOne<Team>().WithMany()
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__UsersTeam__team___6383C8BA"),
-                    j =>
-                    {
-                        j.HasKey("UserId", "TeamId").HasName("PK__UsersTea__663CE9D4131E7ED3");
-                        j.ToTable("UsersTeams");
-                        j.IndexerProperty<int>("UserId").HasColumnName("user_id");
-                        j.IndexerProperty<int>("TeamId").HasColumnName("team_id");
-                    });
-
-            entity.HasMany(d => d.Sprints).WithOne(p => p.Team)
-                .HasForeignKey(d => d.TeamId)
-                .HasConstraintName("FK__Sprints__team_id__693CA210");
-
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -179,26 +155,6 @@ public partial class JyrosContext : DbContext
                         j.IndexerProperty<int>("UserId").HasColumnName("user_id");
                         j.IndexerProperty<int>("TeamId").HasColumnName("team_id");
                     });
-
-            entity.HasMany(d => d.StoriesNavigation).WithMany(p => p.Users)
-            .UsingEntity<Dictionary<string, object>>(
-                "UsersStory",
-                r => r.HasOne<Story>().WithMany()
-                    .HasForeignKey("StoryId")
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UsersStor__story__74AE54BC"),
-                l => l.HasOne<User>().WithMany()
-                    .HasForeignKey("UserId")
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UsersStor__user___73BA3083"),
-                j =>
-                {
-                    j.HasKey("UserId", "StoryId").HasName("PK__UsersSto__8DA87F2683494916");
-                    j.ToTable("UsersStories");
-                    j.IndexerProperty<int>("UserId").HasColumnName("user_id");
-                    j.IndexerProperty<int>("StoryId").HasColumnName("story_id");
-                });
-
         });
 
         OnModelCreatingPartial(modelBuilder);

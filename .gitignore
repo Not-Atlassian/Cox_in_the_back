@@ -79,3 +79,4 @@ $RECYCLE.BIN/
 
 /WebApi/AIModels
 *.onnx
+.DS_Store

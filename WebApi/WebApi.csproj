@@ -8,13 +8,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BERTTokenizers" Version="1.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
+    <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.20.0" />
+    <PackageReference Include="Microsoft.ML.OnnxTransformer" Version="4.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="Tokenizers.DotNet" Version="1.0.5" />
+    <PackageReference Include="Tokenizers.DotNet.runtime.win" Version="1.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AIModels\" />
+    <Folder Include="Vocabularies\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="AIModels\tokenizer.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\danie\.nuget\packages\berttokenizers\1.2.0\contentFiles\any\net6.0\Vocabularies\base_uncased.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

@@ -75,3 +75,7 @@ $RECYCLE.BIN/
 /WebApi/.vs/ProjectEvaluation
 /WebApi/.vs/WebApi/DesignTimeBuild
 /WebApi/.vs/WebApi/v17
+
+
+/WebApi/AIModels
+*.onnx

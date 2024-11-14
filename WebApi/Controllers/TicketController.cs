@@ -46,6 +46,8 @@ namespace WebApi.Controllers
             {
                 story.CreatedBy = user.UserId;
                 story.StoryId = default;
+                story.SprintId = default;
+                story.ParentId = default;
                 await _storyRepository.Add(story);
                 return Ok();
             }
@@ -84,10 +86,10 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("EstimateStoryPoints")]
-        public async Task<IActionResult> EstimateStoryPointsAsync(string title, string description)
+        public async Task<IActionResult> EstimateStoryPointsAsync(string title, string? description)
         {
             var stories = await _storyRepository.GetAll();
-            var storyPoints = await _storyPointEstimator.EstimateStoryPoints(title, description);
+            var storyPoints = await _storyPointEstimator.EstimateStoryPoints(title, description ?? string.Empty);
             return Ok(storyPoints);
         }
     }

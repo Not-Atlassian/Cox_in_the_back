@@ -54,5 +54,13 @@ namespace WebApi.Repository
             return await _context.Stories.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
         }
 
+        public async Task<IEnumerable<Story>> GetFilteredPaginated(string searchKey, int page, int pageSize)
+        {
+            return await _context.Stories.Where(story => story.Title.Contains(searchKey))
+                                         .Skip((page - 1) * pageSize)
+                                         .Take(pageSize)
+                                         .ToListAsync();
+        }
+
     }
 }

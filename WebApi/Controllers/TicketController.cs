@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApi.Context;
 using WebApi.Models;
-using WebApi.Repository;
+using WebApi.RepositoryInterfaces;
 using WebApi.Services;
 
 namespace WebApi.Controllers
@@ -11,18 +11,17 @@ namespace WebApi.Controllers
     public class TicketController : ControllerBase
     {
         private readonly User user;
-        private readonly StoryRepository _storyRepository;
+        private readonly IStoryRepository _storyRepository;
         private readonly StoryPointEstimator _storyPointEstimator;
-        public TicketController(JyrosContext context)
+        public TicketController(IStoryRepository storyRepository)
         {
-            _storyRepository = new StoryRepository(context);
+            _storyRepository = storyRepository;
             user = new User
             {
                 UserId = 1,
                 Username = "alice_smith"
             };
             _storyPointEstimator = new StoryPointEstimator();
-
         }
 
         [HttpGet]

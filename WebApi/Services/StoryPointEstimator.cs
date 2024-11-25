@@ -1,13 +1,13 @@
 ﻿
-using Microsoft.ML.Transforms.Onnx;
-using Microsoft.ML;
+using BERTTokenizers;
 using Microsoft.EntityFrameworkCore;
-using WebApi.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.ML;
+using Microsoft.ML.Data;
+using Microsoft.ML.Transforms.Onnx;
 using System.Collections.Generic;
 using Tokenizers.DotNet;
-using Microsoft.ML.Data;
-using BERTTokenizers;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using WebApi.Models;
 
 namespace WebApi.Services
 {
@@ -37,7 +37,8 @@ namespace WebApi.Services
     {
         private readonly MLContext _mlContext;
         private readonly OnnxScoringEstimator estimator;
-        public StoryPointEstimator() {
+        public StoryPointEstimator()
+        {
             _mlContext = new MLContext();
             estimator = _mlContext.Transforms.ApplyOnnxModel("./AIModels/storypoint_estimator.onnx");
         }

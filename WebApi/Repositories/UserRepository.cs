@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApi.Context;
 using WebApi.Models;
+using WebApi.RepositoryInterfaces;
 
-namespace WebApi.Repository
+namespace WebApi.Repositories
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IUserRepository
     {
         private readonly JyrosContext _context;
         public UserRepository(JyrosContext context)

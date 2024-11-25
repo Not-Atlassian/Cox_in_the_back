@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApi.Context;
 using WebApi.Models;
+using WebApi.RepositoryInterfaces;
 
-namespace WebApi.Repository
+
+namespace WebApi.Repositories
 {
-    public class StoryRepository : IRepository<Story>
+    public class StoryRepository : IStoryRepository
     {
         public readonly JyrosContext _context;
         public StoryRepository(JyrosContext context)
@@ -56,11 +58,7 @@ namespace WebApi.Repository
 
         public async Task<IEnumerable<Story>> GetFilteredPaginated(string searchKey, int page, int pageSize)
         {
-            return await _context.Stories.Where(story => story.Title.Contains(searchKey))
-                                         .Skip((page - 1) * pageSize)
-                                         .Take(pageSize)
-                                         .ToListAsync();
+            return await _context.Stories.Where(s => s.Title.Contains(searchKey)).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
         }
-
     }
 }

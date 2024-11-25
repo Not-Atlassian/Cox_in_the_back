@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApi.Context;
 using WebApi.Models;
-using WebApi.Repository;
+using WebApi.Repositories;
+using WebApi.RepositoryInterfaces;
 
 namespace WebApi.Controllers
 {
@@ -10,11 +11,11 @@ namespace WebApi.Controllers
     public class BacklogController : ControllerBase
     {
         private readonly User user;
-        private readonly StoryRepository _storyRepository;
+        private readonly IStoryRepository _storyRepository;
 
-        public BacklogController(JyrosContext jyrosContext)
+        public BacklogController(IStoryRepository storyRepository)
         {
-            _storyRepository = new StoryRepository(jyrosContext);
+            _storyRepository = storyRepository;
             user = new User
             {
                 UserId = 1,

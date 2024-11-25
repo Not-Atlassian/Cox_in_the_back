@@ -1,4 +1,4 @@
-﻿namespace WebApi.Repository
+﻿namespace WebApi.RepositoryInterfaces
 {
     public interface IRepository<T> where T : class
     {

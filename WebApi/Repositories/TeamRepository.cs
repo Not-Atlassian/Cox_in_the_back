@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebApi.Context;
 using WebApi.Models;
+using WebApi.RepositoryInterfaces;
+using WebApi.Context;
 
-namespace WebApi.Repository
+namespace WebApi.Repositories
 {
-    public class TeamRepository : IRepository<Team>
+    public class TeamRepository : ITeamRepository
     {
 
         private readonly JyrosContext _context;

@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApi.Context;
+using WebApi.RepositoryInterfaces;
+using WebApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,11 +10,10 @@ builder.Services.AddCors(options =>
         options.AddPolicy("AllowAll",
             builder => builder
                 .AllowAnyOrigin()
-                .AllowAnyMethod()  
-                .AllowAnyHeader()); 
+                .AllowAnyMethod()
+                .AllowAnyHeader());
     });
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -20,6 +21,10 @@ builder.Services.AddDbContext<JyrosContext>(options =>
 {
     options.UseSqlServer(builder.Configuration["JyrosContext"]);
 });
+
+builder.Services.AddScoped<IStoryRepository, StoryRepository>();
+builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+builder.Services.AddScoped<ISprintRepository, SprintRepository>();
 
 var app = builder.Build();
 
@@ -38,4 +43,3 @@ app.UseCors("AllowAll");
 app.MapControllers();
 
 app.Run();
-

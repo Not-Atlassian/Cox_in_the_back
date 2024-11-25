@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApi.Context;
 using WebApi.Models;
+using WebApi.RepositoryInterfaces;
 
-namespace WebApi.Repository
+namespace WebApi.Repositories
 {
-    public class SprintRepository : IRepository<Sprint>
+    public class SprintRepository : ISprintRepository
     {
         public readonly JyrosContext _context;
 

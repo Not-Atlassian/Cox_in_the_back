@@ -61,7 +61,7 @@ namespace WebApi.Controllers
             public string Status { get; set; }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}/status")]
         public async Task<IActionResult> PutAsync([FromBody] StatusUpdate status, int id)
         {
             try
@@ -77,6 +77,21 @@ namespace WebApi.Controllers
             }
         }
 
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAsync([FromBody] Story story, int id)
+        {
+            try
+            {
+                story.StoryId = id;
+                await _storyRepository.Update(story);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)

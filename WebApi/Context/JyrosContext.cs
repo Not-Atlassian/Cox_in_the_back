@@ -87,11 +87,11 @@ public partial class JyrosContext : DbContext
                     "UsersStory",
                     r => r.HasOne<User>().WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("FK__UsersStor__user___74AE54BC"),
                     l => l.HasOne<Story>().WithMany()
                         .HasForeignKey("StoryId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("FK__UsersStor__story__73BA3083"),
                     j =>
                     {
@@ -100,6 +100,7 @@ public partial class JyrosContext : DbContext
                         j.IndexerProperty<int>("StoryId").HasColumnName("story_id");
                         j.IndexerProperty<int>("UserId").HasColumnName("user_id");
                     });
+            
         });
 
         modelBuilder.Entity<Team>(entity =>
@@ -138,11 +139,11 @@ public partial class JyrosContext : DbContext
                     "UsersTeam",
                     r => r.HasOne<Team>().WithMany()
                         .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("FK__UsersTeam__team___6477ECF3"),
                     l => l.HasOne<User>().WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("FK__UsersTeam__user___6383C8BA"),
                     j =>
                     {

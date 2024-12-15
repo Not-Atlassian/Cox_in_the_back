@@ -12,8 +12,8 @@ using WebApi.Context;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(JyrosContext))]
-    [Migration("20241125172407_create_db")]
-    partial class create_db
+    [Migration("20241215011021_db_creation")]
+    partial class db_creation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,12 +227,14 @@ namespace WebApi.Migrations
                     b.HasOne("WebApi.Models.Story", null)
                         .WithMany()
                         .HasForeignKey("StoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK__UsersStor__story__73BA3083");
 
                     b.HasOne("WebApi.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK__UsersStor__user___74AE54BC");
                 });
@@ -242,12 +244,14 @@ namespace WebApi.Migrations
                     b.HasOne("WebApi.Models.Team", null)
                         .WithMany()
                         .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK__UsersTeam__team___6477ECF3");
 
                     b.HasOne("WebApi.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK__UsersTeam__user___6383C8BA");
                 });

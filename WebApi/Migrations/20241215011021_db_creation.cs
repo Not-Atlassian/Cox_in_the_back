@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class create_db : Migration
+    public partial class db_creation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -81,12 +81,14 @@ namespace WebApi.Migrations
                         name: "FK__UsersTeam__team___6477ECF3",
                         column: x => x.team_id,
                         principalTable: "Teams",
-                        principalColumn: "team_id");
+                        principalColumn: "team_id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK__UsersTeam__user___6383C8BA",
                         column: x => x.user_id,
                         principalTable: "Users",
-                        principalColumn: "user_id");
+                        principalColumn: "user_id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -137,12 +139,14 @@ namespace WebApi.Migrations
                         name: "FK__UsersStor__story__73BA3083",
                         column: x => x.story_id,
                         principalTable: "Stories",
-                        principalColumn: "story_id");
+                        principalColumn: "story_id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK__UsersStor__user___74AE54BC",
                         column: x => x.user_id,
                         principalTable: "Users",
-                        principalColumn: "user_id");
+                        principalColumn: "user_id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

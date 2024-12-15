@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="BERTTokenizers" Version="1.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
@@ -24,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="AIModels\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Vocabularies\" />
   </ItemGroup>
 

@@ -12,7 +12,7 @@ namespace WebApi.Controllers
     {
         private readonly User user;
         private readonly IStoryRepository _storyRepository;
-        private readonly StoryPointEstimator _storyPointEstimator;
+        //private readonly StoryPointEstimator _storyPointEstimator;
         public TicketController(IStoryRepository storyRepository)
         {
             _storyRepository = storyRepository;
@@ -21,7 +21,7 @@ namespace WebApi.Controllers
                 UserId = 1,
                 Username = "alice_smith"
             };
-            _storyPointEstimator = new StoryPointEstimator();
+            //_storyPointEstimator = new StoryPointEstimator();
         }
 
         [HttpGet]
@@ -56,11 +56,18 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<IActionResult> PutAsync([FromBody] Story story)
+        public struct StatusUpdate
+        {
+            public string Status { get; set; }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAsync([FromBody] StatusUpdate status, int id)
         {
             try
             {
+                var story = await _storyRepository.GetById(id);
+                story.Status = status.Status;
                 await _storyRepository.Update(story);
                 return Ok();
             }
@@ -70,11 +77,17 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpDelete]
+
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             try
             {
+                var story = await _storyRepository.GetById(id);
+                if (story == null)
+                {
+                    return NotFound();
+                }
                 await _storyRepository.Delete(id);
                 return Ok();
             }
@@ -84,12 +97,12 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpGet("EstimateStoryPoints")]
-        public async Task<IActionResult> EstimateStoryPointsAsync(string title, string? description)
-        {
-            var stories = await _storyRepository.GetAll();
-            var storyPoints = await _storyPointEstimator.EstimateStoryPoints(title, description ?? string.Empty);
-            return Ok(storyPoints);
-        }
+        //[HttpGet("EstimateStoryPoints")]
+        //public async Task<IActionResult> EstimateStoryPointsAsync(string title, string? description)
+        //{
+        //    var stories = await _storyRepository.GetAll();
+        //    var storyPoints = await _storyPointEstimator.EstimateStoryPoints(title, description ?? string.Empty);
+        //    return Ok(storyPoints);
+        //}
     }
 }

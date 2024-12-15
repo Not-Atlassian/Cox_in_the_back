@@ -32,6 +32,7 @@ builder.Services.AddDbContext<JyrosContext>(options =>
 builder.Services.AddScoped<IStoryRepository, StoryRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<ISprintRepository, SprintRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

@@ -16,13 +16,18 @@ public partial class JyrosContext : DbContext
     {
     }
 
-    public virtual DbSet<Sprint> Sprints { get; set; }
+    public required virtual DbSet<Sprint> Sprints { get; set; }
 
-    public virtual DbSet<Story> Stories { get; set; }
+    public required virtual DbSet<Story> Stories { get; set; }
 
-    public virtual DbSet<Team> Teams { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
+    public required virtual DbSet<Team> Teams { get; set; }
+
+    public required virtual DbSet<User> Users { get; set; }
+
+    public required virtual DbSet<TeamMemberAvailability> TeamMemberAvailabilities { get; set; }
+
+    public required virtual DbSet<Adjustment> Adjustments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -152,6 +157,33 @@ public partial class JyrosContext : DbContext
                         j.IndexerProperty<int>("UserId").HasColumnName("user_id");
                         j.IndexerProperty<int>("TeamId").HasColumnName("team_id");
                     });
+        });
+        modelBuilder.Entity<TeamMemberAvailability>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__TeamMemb__3214EC07A9A5EE06");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.SprintId).HasColumnName("sprint_id");
+            entity.Property(e => e.AvailabilityPoints).HasColumnName("availability_points");
+
+            entity.HasOne(d => d.Sprint).WithMany(p => p.TeamMemberAvailabilities)
+                .HasForeignKey(d => d.SprintId)
+                .HasConstraintName("FK__TeamMembe__sprin__6DCC4D03");
+        });
+
+        modelBuilder.Entity<Adjustment>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Adjustme__3214EC07B3BFDA02");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.SprintId).HasColumnName("sprint_id");
+            entity.Property(e => e.AdjustmentPoints).HasColumnName("adjustment_points");
+
+            entity.HasOne(d => d.Sprint).WithMany(p => p.Adjustments)
+                .HasForeignKey(d => d.SprintId)
+                .HasConstraintName("FK__Adjustmen__sprin__6EC0713C");
         });
 
         OnModelCreatingPartial(modelBuilder);

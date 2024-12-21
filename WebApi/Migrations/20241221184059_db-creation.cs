@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class db_creation : Migration
+    public partial class dbcreation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -92,6 +92,27 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Adjustments",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    user_id = table.Column<int>(type: "int", nullable: false),
+                    sprint_id = table.Column<int>(type: "int", nullable: false),
+                    adjustment_points = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__Adjustme__3214EC07B3BFDA02", x => x.id);
+                    table.ForeignKey(
+                        name: "FK__Adjustmen__sprin__6EC0713C",
+                        column: x => x.sprint_id,
+                        principalTable: "Sprints",
+                        principalColumn: "sprint_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Stories",
                 columns: table => new
                 {
@@ -126,6 +147,27 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TeamMemberAvailabilities",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    user_id = table.Column<int>(type: "int", nullable: false),
+                    sprint_id = table.Column<int>(type: "int", nullable: false),
+                    availability_points = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__TeamMemb__3214EC07A9A5EE06", x => x.id);
+                    table.ForeignKey(
+                        name: "FK__TeamMembe__sprin__6DCC4D03",
+                        column: x => x.sprint_id,
+                        principalTable: "Sprints",
+                        principalColumn: "sprint_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UsersStories",
                 columns: table => new
                 {
@@ -150,6 +192,11 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Adjustments_sprint_id",
+                table: "Adjustments",
+                column: "sprint_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Sprints_team_id",
                 table: "Sprints",
                 column: "team_id");
@@ -167,6 +214,11 @@ namespace WebApi.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Stories_sprint_id",
                 table: "Stories",
+                column: "sprint_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeamMemberAvailabilities_sprint_id",
+                table: "TeamMemberAvailabilities",
                 column: "sprint_id");
 
             migrationBuilder.CreateIndex(
@@ -200,6 +252,12 @@ namespace WebApi.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Adjustments");
+
+            migrationBuilder.DropTable(
+                name: "TeamMemberAvailabilities");
+
             migrationBuilder.DropTable(
                 name: "UsersStories");
 

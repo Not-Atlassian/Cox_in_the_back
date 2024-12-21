@@ -12,8 +12,8 @@ using WebApi.Context;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(JyrosContext))]
-    [Migration("20241215011021_db_creation")]
-    partial class db_creation
+    [Migration("20241221184059_db-creation")]
+    partial class dbcreation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,35 @@ namespace WebApi.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("UsersTeams", (string)null);
+                });
+
+            modelBuilder.Entity("WebApi.Models.Adjustment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AdjustmentPoints")
+                        .HasColumnType("int")
+                        .HasColumnName("adjustment_points");
+
+                    b.Property<int>("SprintId")
+                        .HasColumnType("int")
+                        .HasColumnName("sprint_id");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("PK__Adjustme__3214EC07B3BFDA02");
+
+                    b.HasIndex("SprintId");
+
+                    b.ToTable("Adjustments");
                 });
 
             modelBuilder.Entity("WebApi.Models.Sprint", b =>
@@ -198,6 +227,35 @@ namespace WebApi.Migrations
                     b.ToTable("Teams");
                 });
 
+            modelBuilder.Entity("WebApi.Models.TeamMemberAvailability", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AvailabilityPoints")
+                        .HasColumnType("int")
+                        .HasColumnName("availability_points");
+
+                    b.Property<int>("SprintId")
+                        .HasColumnType("int")
+                        .HasColumnName("sprint_id");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("PK__TeamMemb__3214EC07A9A5EE06");
+
+                    b.HasIndex("SprintId");
+
+                    b.ToTable("TeamMemberAvailabilities");
+                });
+
             modelBuilder.Entity("WebApi.Models.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -256,6 +314,18 @@ namespace WebApi.Migrations
                         .HasConstraintName("FK__UsersTeam__user___6383C8BA");
                 });
 
+            modelBuilder.Entity("WebApi.Models.Adjustment", b =>
+                {
+                    b.HasOne("WebApi.Models.Sprint", "Sprint")
+                        .WithMany("Adjustments")
+                        .HasForeignKey("SprintId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK__Adjustmen__sprin__6EC0713C");
+
+                    b.Navigation("Sprint");
+                });
+
             modelBuilder.Entity("WebApi.Models.Sprint", b =>
                 {
                     b.HasOne("WebApi.Models.Team", "Team")
@@ -300,9 +370,25 @@ namespace WebApi.Migrations
                     b.Navigation("TeamLead");
                 });
 
+            modelBuilder.Entity("WebApi.Models.TeamMemberAvailability", b =>
+                {
+                    b.HasOne("WebApi.Models.Sprint", "Sprint")
+                        .WithMany("TeamMemberAvailabilities")
+                        .HasForeignKey("SprintId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK__TeamMembe__sprin__6DCC4D03");
+
+                    b.Navigation("Sprint");
+                });
+
             modelBuilder.Entity("WebApi.Models.Sprint", b =>
                 {
+                    b.Navigation("Adjustments");
+
                     b.Navigation("Stories");
+
+                    b.Navigation("TeamMemberAvailabilities");
                 });
 
             modelBuilder.Entity("WebApi.Models.Story", b =>

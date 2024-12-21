@@ -79,9 +79,68 @@ Before proceeding, ensure you have the following installed:
 ### Verify Database Changes
 
 3. Open SSMS and connect to your SQL Server instance.
+
 4. Verify that the database has been created and updated with the specified tables and schema.
 
 ---
+
+## Step 5: Add Mock Data to the Database
+
+After setting up the database and applying migrations, you can insert mock data to test your application.
+
+1. Open **SQL Server Management Studio (SSMS)** and connect to your SQL Server instance.
+
+2. In the query editor, select the `Jyros` database, and run the following SQL commands:
+
+```sql
+-- Adding mock data for Users
+INSERT INTO Users (username) VALUES
+('Alice'),
+('Bob'),
+('Charlie'),
+('Diana');
+
+-- Adding mock data for Teams
+INSERT INTO Teams (team_name, team_description, team_lead_id) VALUES
+('Team Alpha', 'Handles Alpha projects', 1),
+('Team Beta', 'Focuses on Beta tasks', 2);
+
+-- Adding mock data for UsersTeams
+INSERT INTO UsersTeams (user_id, team_id) VALUES
+(1, 1),
+(2, 1),
+(3, 2),
+(4, 2);
+
+-- Adding mock data for Sprints
+INSERT INTO Sprints (name, goal, start_date, end_date, status, team_id) VALUES
+('Sprint 1', 'Complete initial setup', '2023-01-01', '2023-01-15', 'Active', 1),
+('Sprint 2', 'Develop core features', '2023-01-16', '2023-01-31', 'Active', 2);
+
+-- Adding mock data for Stories
+INSERT INTO Stories (title, description, status, parent_id, sprint_id, created_by, story_points) VALUES
+('Setup database', 'Create and configure the database', 'In Progress', NULL, 1, 1, 5),
+('Build API', 'Develop the API for the app', 'To Do', NULL, 2, 2, 8);
+
+-- Adding mock data for UsersStories
+INSERT INTO UsersStories (story_id, user_id) VALUES
+(1, 1),
+(2, 2);
+
+-- Adding mock data for TeamMemberAvailabilities
+INSERT INTO TeamMemberAvailabilities (user_id, sprint_id, availability_points) VALUES
+(1, 1, 20),
+(2, 1, 15),
+(3, 2, 18),
+(4, 2, 22);
+
+-- Adding mock data for Adjustments
+INSERT INTO Adjustments (user_id, sprint_id, adjustment_points) VALUES
+(1, 1, -2),
+(2, 1, 3),
+(3, 2, 0),
+(4, 2, 1);
+```
 
 ## Troubleshooting
 

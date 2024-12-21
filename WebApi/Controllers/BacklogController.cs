@@ -12,10 +12,12 @@ namespace WebApi.Controllers
     {
         private readonly User user;
         private readonly IStoryRepository _storyRepository;
+        private readonly ISprintRepository _sprintRepository;
 
-        public BacklogController(IStoryRepository storyRepository)
+        public BacklogController(IStoryRepository storyRepository, ISprintRepository sprintRepository)
         {
             _storyRepository = storyRepository;
+            _sprintRepository = sprintRepository;
             user = new User
             {
                 UserId = 1,
@@ -91,6 +93,39 @@ namespace WebApi.Controllers
                 return Ok(await _storyRepository.GetFilteredPaginated(searchKey, page, pageSize));
 
             return BadRequest();
+        }
+
+        [HttpGet("shift/{page}/{count}")]
+        public async Task<IActionResult> GetShiftAsync(int page, int count)
+        {
+            if (count <= 200)
+                return Ok(await _sprintRepository.GetPaginated(page, count));
+
+            return BadRequest();
+        }
+
+
+        [HttpGet("shift/details/{id}")]
+        public async Task<IActionResult> GetShift(int id)
+        {
+            var sprint = await _sprintRepository.GetById(id);
+
+            return sprint != null ? Ok(sprint) : NotFound();
+        }
+
+
+        [HttpPost("shift")]
+        public async Task<IActionResult> PostSprintAsync([FromBody] Sprint sprint)
+        {
+            try
+            {
+                await _sprintRepository.Add(sprint);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -119,7 +119,7 @@ INSERT INTO Sprints (name, goal, start_date, end_date, status, team_id) VALUES
 
 -- Adding mock data for Stories
 INSERT INTO Stories (title, description, status, parent_id, sprint_id, created_by, story_points) VALUES
-('Setup database', 'Create and configure the database', 'In Progress', NULL, 1, 1, 5),
+('Setup database', 'Create and configure the database', 'To Do', NULL, 1, 1, 5),
 ('Build API', 'Develop the API for the app', 'To Do', NULL, 2, 2, 8);
 
 -- Adding mock data for UsersStories

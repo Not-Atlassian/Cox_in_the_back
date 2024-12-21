@@ -18,6 +18,16 @@ namespace WebApi.Repositories
             return await _context.Users.ToListAsync();
         }
 
+        public async Task<IEnumerable<UserGetDTO>> GetAllGood()
+        {
+            return await _context.Users
+                .Select(user => new UserGetDTO
+                {
+                    UserId = user.UserId,
+                    Username = user.Username,
+                }).ToListAsync();
+        }
+
         public async Task<User> Add(User entity)
         {
             _context.Users.Add(entity);
@@ -53,6 +63,14 @@ namespace WebApi.Repositories
         public async Task<IEnumerable<User>> GetPaginated(int page, int pageSize)
         {
             return await _context.Users.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+        }
+
+        public async Task<int> GetAvailabilityPoints(int id)
+        {
+            //from team mebmer availability get the availability points user id is equal to id
+            //TODO: REFRACTOR THIS WHEN WE HAVE A LOGIN AND CURENT USER WITH A GOOD DB
+            var availability = await _context.TeamMemberAvailabilities.FirstOrDefaultAsync(x => x.UserId == id);
+            return availability.AvailabilityPoints;
         }
 
     }

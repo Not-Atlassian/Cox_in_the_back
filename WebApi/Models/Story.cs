@@ -5,6 +5,8 @@ namespace WebApi.Models;
 
 public partial class Story
 {
+    [System.Text.Json.Serialization.JsonIgnore]
+
     public int StoryId { get; set; }
 
     public string Title { get; set; } = null!;
@@ -12,6 +14,8 @@ public partial class Story
     public string? Description { get; set; }
 
     public string? Status { get; set; }
+
+    public int Priority { get; set; }
 
     public int? ParentId { get; set; }
 

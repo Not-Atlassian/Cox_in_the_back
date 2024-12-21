@@ -22,12 +22,24 @@ namespace WebApi.Controllers
         {
             return Ok(await _userRepository.GetAll());
         }
+        [HttpGet("good")]
+        public async Task<IActionResult> GetGood()
+        {
+            return Ok(await _userRepository.GetAllGood());
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var user = await _userRepository.GetById(id);
             return user != null ? Ok(user) : NotFound();
+        }
+
+        // get /user/availability_points/id
+        [HttpGet("availability_points/{id}")]
+        public async Task<IActionResult> GetAvailabilityPoints(int id)
+        {
+            return Ok(await _userRepository.GetAvailabilityPoints(id));
         }
     }
 }

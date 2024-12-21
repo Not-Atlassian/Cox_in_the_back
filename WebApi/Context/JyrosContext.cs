@@ -70,6 +70,7 @@ public partial class JyrosContext : DbContext
                 .HasMaxLength(15)
                 .HasDefaultValue("open")
                 .HasColumnName("status");
+            entity.Property(e => e.Priority).HasDefaultValue(1).HasColumnName("priority");
             entity.Property(e => e.StoryPoints).HasColumnName("story_points");
             entity.Property(e => e.Title)
                 .HasMaxLength(50)
@@ -105,7 +106,7 @@ public partial class JyrosContext : DbContext
                         j.IndexerProperty<int>("StoryId").HasColumnName("story_id");
                         j.IndexerProperty<int>("UserId").HasColumnName("user_id");
                     });
-            
+
         });
 
         modelBuilder.Entity<Team>(entity =>

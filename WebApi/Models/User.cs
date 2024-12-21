@@ -24,3 +24,10 @@ public partial class User
     [System.Text.Json.Serialization.JsonIgnore]
     public virtual ICollection<Team> TeamsNavigation { get; set; } = new List<Team>();
 }
+
+public partial class UserGetDTO
+{
+    public int UserId { get; set; }
+    public string Username { get; set; } = null!;
+
+}

@@ -20,10 +20,16 @@ public partial class Sprint
     public string? Status { get; set; }
 
     public int? TeamId { get; set; }
-    [System.Text.Json.Serialization.JsonIgnore]
 
+    [System.Text.Json.Serialization.JsonIgnore]
     public virtual ICollection<Story> Stories { get; set; } = new List<Story>();
-    [System.Text.Json.Serialization.JsonIgnore]
 
+    [System.Text.Json.Serialization.JsonIgnore]
+    public virtual ICollection<TeamMemberAvailability> TeamMemberAvailabilities { get; set; } = new List<TeamMemberAvailability>();
+
+    [System.Text.Json.Serialization.JsonIgnore]
+    public virtual ICollection<Adjustment> Adjustments { get; set; } = new List<Adjustment>();
+
+    [System.Text.Json.Serialization.JsonIgnore]
     public virtual Team? Team { get; set; }
 }

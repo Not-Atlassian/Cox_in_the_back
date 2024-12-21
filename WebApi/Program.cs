@@ -6,13 +6,20 @@ using WebApi.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
-    {
-        options.AddPolicy("AllowAll",
-            builder => builder
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
-    });
+{
+    options.AddPolicy("AllowLocalhost3000",
+        builder => builder
+            .WithOrigins("http://localhost:5173", "https://localhost:5173", "http://192.168.1.138") // Include both HTTP and HTTPS origins
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials());
+    options.AddPolicy("AllowLocalhost3000",
+        builder => builder
+            .WithOrigins("http://localhost:5173", "https://localhost:5173") // Include both HTTP and HTTPS origins
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials());
+});
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -25,6 +32,7 @@ builder.Services.AddDbContext<JyrosContext>(options =>
 builder.Services.AddScoped<IStoryRepository, StoryRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<ISprintRepository, SprintRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
@@ -37,8 +45,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("AllowLocalhost3000");
 app.UseAuthorization();
-app.UseCors("AllowAll");
 
 app.MapControllers();
 

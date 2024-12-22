@@ -54,5 +54,10 @@ namespace WebApi.Repositories
         {
           return await _context.TeamMemberAvailabilities.FirstOrDefaultAsync(tma => tma.SprintId == sprintId && tma.UserId == userId);
         }
+
+        public async Task<TeamMemberAvailability> GetAvailabilityBySprintIdAndUserId(int sprintId, int userId)
+        {
+            return await _context.TeamMemberAvailabilities.FirstOrDefaultAsync(tma => tma.SprintId == sprintId && tma.UserId == userId);
+        }
     }
 }

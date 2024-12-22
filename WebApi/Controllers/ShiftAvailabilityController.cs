@@ -34,5 +34,16 @@ namespace WebApi.Controllers
             return teamMemberAvailability != null ? Ok(teamMemberAvailability) : NotFound();
         }
 
+        [HttpGet("sprints")]
+        public async Task<IActionResult> GetSprints()
+        {
+            return Ok(await _sprintRepository.GetAll());
+        }
+
+        [HttpGet("sprints/{sprintId}/users")]
+        public async Task<IActionResult> GetUsers(int sprintId)
+        {
+            return Ok(await _userRepository.GetUsersBySprintId(sprintId));
+        }
     }
 }

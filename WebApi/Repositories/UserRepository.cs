@@ -18,18 +18,17 @@ namespace WebApi.Repositories
             return await _context.Users.ToListAsync();
         }
 
-        public async Task<IEnumerable<UserGetDTO>> GetAllGood()
-        {
-            return await _context.Users
-                .Select(user => new UserGetDTO
-                {
-                    UserId = user.UserId,
-                    Username = user.Username,
-                }).ToListAsync();
-        }
 
         public async Task<User> Add(User entity)
         {
+            try
+            {
+                entity.UserId =default;
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
             _context.Users.Add(entity);
             await _context.SaveChangesAsync();
             return entity;
@@ -64,16 +63,16 @@ namespace WebApi.Repositories
         {
             return await _context.Users.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
         }
-
-        public async Task<int> GetAvailabilityPoints(int id)
+        public async Task<IEnumerable<User>> GetUsersBySprintId(int sprintId)
         {
-            //from team mebmer availability get the availability points user id is equal to id
-            //TODO: REFRACTOR THIS WHEN WE HAVE A LOGIN AND CURENT USER WITH A GOOD DB
-            var availability = await _context.TeamMemberAvailabilities.FirstOrDefaultAsync(x => x.UserId == id);
-            return availability.AvailabilityPoints;
+            return await _context.TeamMemberAvailabilities
+                .Where(tma => tma.SprintId == sprintId)
+                .Join(_context.Users,
+                    tma => tma.UserId,
+                    user => user.UserId,
+                    (tma, user) => user)
+                .ToListAsync();
         }
-
     }
-
 
 }

@@ -28,6 +28,7 @@ builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<ISprintRepository, SprintRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITeamMemberAvailabilityRepository, TeamMemberAvailabilityRepository>();
+builder.Services.AddScoped<IAdjustmentRepository, AdjustmentRepository>();
 
 var app = builder.Build();
 

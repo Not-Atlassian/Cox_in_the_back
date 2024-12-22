@@ -178,9 +178,11 @@ public partial class JyrosContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__Adjustme__3214EC07B3BFDA02");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.SprintId).HasColumnName("sprint_id");
             entity.Property(e => e.AdjustmentPoints).HasColumnName("adjustment_points");
+            entity.Property(e => e.Reason)
+                .HasMaxLength(100)
+                .HasColumnName("reason");
 
             entity.HasOne(d => d.Sprint).WithMany(p => p.Adjustments)
                 .HasForeignKey(d => d.SprintId)

@@ -6,6 +6,5 @@ namespace WebApi.RepositoryInterfaces
 {
     public interface ISprintRepository : IRepository<Sprint>
     {
-
     }
 }

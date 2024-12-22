@@ -6,8 +6,7 @@ namespace WebApi.RepositoryInterfaces
 {
     public interface IUserRepository : IRepository<User>
     {
-        public Task<int> GetAvailabilityPoints(int id);
-        public Task<IEnumerable<UserGetDTO>> GetAllGood();
+        public Task<IEnumerable<User>> GetUsersBySprintId(int sprintId);
 
     }
 

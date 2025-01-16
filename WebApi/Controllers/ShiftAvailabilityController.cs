@@ -37,6 +37,26 @@ namespace WebApi.Controllers
             return teamMemberAvailability != null ? Ok(teamMemberAvailability) : NotFound();
         }
 
+        [HttpGet("{sprintId}/adjustment")]
+        public async Task<IActionResult> GetAdjustmentLength(int sprintId)
+        {
+            var adjustments = await _adjustmentRepository.GetAll();
+            var filteredAdjustments = adjustments.Where(a => a.SprintId == sprintId).ToList();
+
+            var totalAdjustment = filteredAdjustments.Sum(a => a.AdjustmentPoints);
+
+            return Ok(totalAdjustment);
+        }
+
+        [HttpGet("{sprintId}/adjustment/all")]
+        public async Task<IActionResult> GetAllAdjustments(int sprintId)
+        {
+            var adjustments = await _adjustmentRepository.GetAll();
+            var filteredAdjustments = adjustments.Where(a => a.SprintId == sprintId).ToList();
+            return Ok(filteredAdjustments);
+        }
+
+
         [HttpGet("sprints")]
         public async Task<IActionResult> GetSprints()
         {

@@ -135,11 +135,11 @@ INSERT INTO TeamMemberAvailabilities (user_id, sprint_id, availability_points) V
 (4, 2, 22);
 
 -- Adding mock data for Adjustments
-INSERT INTO Adjustments (user_id, sprint_id, adjustment_points) VALUES
-(1, 1, -2),
-(2, 1, 3),
-(3, 2, 0),
-(4, 2, 1);
+INSERT INTO Adjustments (sprint_id, adjustment_points, reason) VALUES
+( 1, -2, 'lmao'),
+( 1, 3, 'UwU'),
+( 2, 0, 'bruh'),
+( 2, 1, 'bro dieded');
 ```
 
 ## Troubleshooting

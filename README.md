@@ -53,11 +53,11 @@ Before proceeding, ensure you have the following installed:
 
 2. Run the following command to set the connection string:
    ```bash
-   dotnet user-secrets set "JyrosContext" "Data Source=<database_name>;Initial Catalog=Jyros;Integrated Security=True;TrustServerCertificate=True;"
+   dotnet user-secrets set "JyrosContext" "Data Source=<server_name>;Initial Catalog=Jyros;Integrated Security=True;TrustServerCertificate=True;"
    ```
 
    Replace the following placeholders:
-   - `<database_name>`: The name of your database.
+   - `<server_name>`: The name of your server.
 ---
 
 ## Step 4: Update Local Database Using `dotnet-ef`

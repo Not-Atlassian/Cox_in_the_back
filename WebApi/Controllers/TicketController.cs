@@ -45,7 +45,6 @@ namespace WebApi.Controllers
             {
                 story.CreatedBy = user.UserId;
                 story.StoryId = default;
-                story.SprintId = default;
                 story.ParentId = default;
                 await _storyRepository.Add(story);
                 return Ok();

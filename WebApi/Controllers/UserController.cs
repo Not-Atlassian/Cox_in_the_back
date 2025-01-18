@@ -46,5 +46,35 @@ namespace WebApi.Controllers
             }
         }
 
+        [HttpPost("/login")]
+        public async Task<IActionResult> LogIn([FromBody]User user)
+        {
+            var userDb = await _userRepository.GetUserByName(user.Username);
+            Console.WriteLine(user.Username);
+            if (user == null)
+            {
+                return BadRequest(new { Message = "Invalid username" });
+            }
+            else if (user.Password != userDb.Password)
+            {
+                return BadRequest(new { Message = "Password is incorect" });
+            }
+            Globals.curretUser = user;
+            return Ok(new {Message = "Login succes", User = userDb});
+        }
+
+        [HttpGet("currentUser")]
+        public async Task<IActionResult> GetGlobalUser()
+        {
+            return Ok(Globals.curretUser);
+        }
+
+        [HttpGet("isLoggedIn")]
+        public async Task<IActionResult> IsLoggedIn()
+        {
+            return Ok(Globals.curretUser.Username == null ? false : true);
+
+        }
+
     }
 }

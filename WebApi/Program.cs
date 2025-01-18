@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using WebApi.Context;
+using WebApi.Models;
 using WebApi.Repositories;
 using WebApi.RepositoryInterfaces;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddCors(options =>
 {
@@ -47,3 +49,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+public static class Globals
+{
+    public static User curretUser = new User(); 
+}

@@ -18,8 +18,17 @@ namespace WebApi.Repositories
             return await _context.Users.ToListAsync();
         }
 
+
         public async Task<User> Add(User entity)
         {
+            try
+            {
+                entity.UserId =default;
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
             _context.Users.Add(entity);
             await _context.SaveChangesAsync();
             return entity;
@@ -54,8 +63,20 @@ namespace WebApi.Repositories
         {
             return await _context.Users.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
         }
-
+        public async Task<IEnumerable<User>> GetUsersBySprintId(int sprintId)
+        {
+            return await _context.TeamMemberAvailabilities
+                .Where(tma => tma.SprintId == sprintId)
+                .Join(_context.Users,
+                    tma => tma.UserId,
+                    user => user.UserId,
+                    (tma, user) => user)
+                .ToListAsync();
+        }
+        public async Task<User> GetUserByName(string name)
+        {
+            return await _context.Users.Where(u => u.Username == name).FirstAsync();
+        }
     }
-
 
 }

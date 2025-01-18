@@ -4,7 +4,8 @@ using System.Collections.Generic;
 namespace WebApi.Models;
 
 public partial class TeamMemberAvailability
-{  
+{
+    [System.Text.Json.Serialization.JsonIgnore]
     public int Id { get; set; }
 
     public int UserId { get; set; }

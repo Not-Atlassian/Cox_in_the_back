@@ -5,11 +5,11 @@ namespace WebApi.Models;
 
 public partial class User
 {
-    [System.Text.Json.Serialization.JsonIgnore]
-
     public int UserId { get; set; }
 
     public string Username { get; set; } = null!;
+
+    public string Password { get; set; } = string.Empty!;
 
 
     [System.Text.Json.Serialization.JsonIgnore]

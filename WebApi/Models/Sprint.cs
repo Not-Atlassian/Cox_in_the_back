@@ -5,7 +5,6 @@ namespace WebApi.Models;
 
 public partial class Sprint
 {
-    [System.Text.Json.Serialization.JsonIgnore]
 
     public int SprintId { get; set; }
 
@@ -33,3 +32,4 @@ public partial class Sprint
     [System.Text.Json.Serialization.JsonIgnore]
     public virtual Team? Team { get; set; }
 }
+

@@ -53,11 +53,11 @@ Before proceeding, ensure you have the following installed:
 
 2. Run the following command to set the connection string:
    ```bash
-   dotnet user-secrets set "JyrosContext" "Data Source=<database_name>;Initial Catalog=Jyros;Integrated Security=True;TrustServerCertificate=True;"
+   dotnet user-secrets set "JyrosContext" "Data Source=<server_name>;Initial Catalog=Jyros;Integrated Security=True;TrustServerCertificate=True;"
    ```
 
    Replace the following placeholders:
-   - `<database_name>`: The name of your database.
+   - `<server_name>`: The name of your server.
 ---
 
 ## Step 4: Update Local Database Using `dotnet-ef`
@@ -135,11 +135,11 @@ INSERT INTO TeamMemberAvailabilities (user_id, sprint_id, availability_points) V
 (4, 2, 22);
 
 -- Adding mock data for Adjustments
-INSERT INTO Adjustments (user_id, sprint_id, adjustment_points) VALUES
-(1, 1, -2),
-(2, 1, 3),
-(3, 2, 0),
-(4, 2, 1);
+INSERT INTO Adjustments (sprint_id, adjustment_points, reason) VALUES
+( 1, -2, 'lmao'),
+( 1, 3, 'UwU'),
+( 2, 0, 'bruh'),
+( 2, 1, 'bro dieded');
 ```
 
 ## Troubleshooting

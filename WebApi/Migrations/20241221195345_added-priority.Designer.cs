@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApi.Context;
 
@@ -11,9 +12,11 @@ using WebApi.Context;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(JyrosContext))]
-    partial class JyrosContextModelSnapshot : ModelSnapshot
+    [Migration("20241221195345_added-priority")]
+    partial class addedpriority
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,15 +74,13 @@ namespace WebApi.Migrations
                         .HasColumnType("int")
                         .HasColumnName("adjustment_points");
 
-                    b.Property<string>("Reason")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("reason");
-
                     b.Property<int>("SprintId")
                         .HasColumnType("int")
                         .HasColumnName("sprint_id");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
 
                     b.HasKey("Id")
                         .HasName("PK__Adjustme__3214EC07B3BFDA02");
@@ -269,10 +270,6 @@ namespace WebApi.Migrations
                         .HasColumnName("user_id");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
                         .IsRequired()

@@ -1,21 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using WebApi.Context;
-using WebApi.RepositoryInterfaces;
+using WebApi.Models;
 using WebApi.Repositories;
+using WebApi.RepositoryInterfaces;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowLocalhost3000",
         builder => builder
             .WithOrigins("http://localhost:5173", "https://localhost:5173", "http://192.168.1.138") // Include both HTTP and HTTPS origins
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials());
-    options.AddPolicy("AllowLocalhost3000",
-        builder => builder
-            .WithOrigins("http://localhost:5173", "https://localhost:5173") // Include both HTTP and HTTPS origins
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials());
@@ -33,6 +29,8 @@ builder.Services.AddScoped<IStoryRepository, StoryRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<ISprintRepository, SprintRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ITeamMemberAvailabilityRepository, TeamMemberAvailabilityRepository>();
+builder.Services.AddScoped<IAdjustmentRepository, AdjustmentRepository>();
 
 var app = builder.Build();
 
@@ -51,3 +49,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+public static class Globals
+{
+    public static User curretUser = new User(); 
+}

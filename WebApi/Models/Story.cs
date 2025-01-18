@@ -13,6 +13,8 @@ public partial class Story
 
     public string? Status { get; set; }
 
+    public int Priority { get; set; }
+
     public int? ParentId { get; set; }
 
     public int? SprintId { get; set; }

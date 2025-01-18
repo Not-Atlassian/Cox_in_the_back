@@ -12,7 +12,7 @@ namespace WebApi.Controllers
     {
         private readonly User user;
         private readonly IStoryRepository _storyRepository;
-        //private readonly StoryPointEstimator _storyPointEstimator;
+        private readonly StoryPointEstimator _storyPointEstimator;
         public TicketController(IStoryRepository storyRepository)
         {
             _storyRepository = storyRepository;
@@ -21,7 +21,7 @@ namespace WebApi.Controllers
                 UserId = 1,
                 Username = "alice_smith"
             };
-            //_storyPointEstimator = new StoryPointEstimator();
+            _storyPointEstimator = new StoryPointEstimator();
         }
 
         [HttpGet]
@@ -112,12 +112,12 @@ namespace WebApi.Controllers
             }
         }
 
-        //[HttpGet("EstimateStoryPoints")]
-        //public async Task<IActionResult> EstimateStoryPointsAsync(string title, string? description)
-        //{
-        //    var stories = await _storyRepository.GetAll();
-        //    var storyPoints = await _storyPointEstimator.EstimateStoryPoints(title, description ?? string.Empty);
-        //    return Ok(storyPoints);
-        //}
+        [HttpGet("EstimateStoryPoints")]
+        public async Task<IActionResult> EstimateStoryPointsAsync(string title, string? description)
+        {
+            var stories = await _storyRepository.GetAll();
+            var storyPoints = await _storyPointEstimator.EstimateStoryPoints(title, description ?? string.Empty);
+            return Ok(storyPoints);
+        }
     }
 }

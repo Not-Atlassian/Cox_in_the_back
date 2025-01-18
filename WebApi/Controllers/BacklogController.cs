@@ -10,7 +10,7 @@ namespace WebApi.Controllers
     [ApiController]
     public class BacklogController : ControllerBase
     {
-        private readonly User user;
+        private readonly User user = Globals.curretUser;
         private readonly IStoryRepository _storyRepository;
 
         public BacklogController(IStoryRepository storyRepository)

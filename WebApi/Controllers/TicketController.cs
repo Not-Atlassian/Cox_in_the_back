@@ -10,7 +10,7 @@ namespace WebApi.Controllers
     [Route("api/[controller]")]
     public class TicketController : ControllerBase
     {
-        private readonly User user;
+        private readonly User user = Globals.curretUser;
         private readonly IStoryRepository _storyRepository;
         //private readonly StoryPointEstimator _storyPointEstimator;
         public TicketController(IStoryRepository storyRepository)

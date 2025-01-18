@@ -61,5 +61,12 @@ namespace WebApi.Repositories
         {
             return await _context.Adjustments.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
         }
+
+        public async Task<int> GetAdjustmentsPerSprint(int sprintId)
+        {
+            return await _context.Adjustments
+                .Where(a => a.SprintId == sprintId)
+                .SumAsync(a => a.AdjustmentPoints);
+        }
     }
 }

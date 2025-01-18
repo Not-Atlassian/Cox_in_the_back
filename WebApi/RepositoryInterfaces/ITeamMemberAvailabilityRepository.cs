@@ -7,5 +7,6 @@ namespace WebApi.RepositoryInterfaces
     public interface ITeamMemberAvailabilityRepository : IRepository<TeamMemberAvailability>
     {
         Task<TeamMemberAvailability> GetBySprintIdAndUserId(int sprintId, int userId);
+        Task<int> GetTotalAvailabilityPerSprint(int sprintId);
     }
 }

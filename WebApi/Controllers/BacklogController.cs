@@ -13,8 +13,13 @@ namespace WebApi.Controllers
         private readonly User user = Globals.curretUser;
         private readonly IStoryRepository _storyRepository;
         private readonly ISprintRepository _sprintRepository;
+        private readonly IAdjustmentRepository _adjustmentRepository;
+        private readonly ITeamMemberAvailabilityRepository _teamMemberAvailabilityRepository;
 
-        public BacklogController(IStoryRepository storyRepository, ISprintRepository sprintRepository)
+        public BacklogController(IStoryRepository storyRepository, 
+                                 ISprintRepository sprintRepository, 
+                                 IAdjustmentRepository adjustmentRepository, 
+                                 ITeamMemberAvailabilityRepository teamMemberAvailabilityRepository)
         {
             _storyRepository = storyRepository;
             _sprintRepository = sprintRepository;
@@ -23,6 +28,8 @@ namespace WebApi.Controllers
                 UserId = 1,
                 Username = "alice_smith"
             };
+            _adjustmentRepository = adjustmentRepository;
+            _teamMemberAvailabilityRepository = teamMemberAvailabilityRepository;
         }
 
         [HttpGet("{page}/{count}")]
@@ -126,6 +133,28 @@ namespace WebApi.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet("availability")]
+        public async Task<IActionResult> GetNetAvailabilityOnShift()
+        {
+            var availabilities = (await _sprintRepository.GetAll())
+                .Select(async s => new
+                {
+                    sprintId = s.SprintId,
+                    availability = await _teamMemberAvailabilityRepository.GetTotalAvailabilityPerSprint(s.SprintId) - 
+                                   await _adjustmentRepository.GetAdjustmentsPerSprint(s.SprintId)
+                })
+                .Select(s => s.Result);
+
+            return Ok(availabilities);
+
+            /*int adjustmentsPerSprintTask =
+                await _adjustmentRepository.GetAdjustmentsPerSprint(sprint_id);
+            int devAvailabilityPerSprintTask =
+                await _teamMemberAvailabilityRepository.GetTotalAvailabilityPerSprint(sprint_id);
+
+            return Ok(devAvailabilityPerSprintTask - adjustmentsPerSprintTask);*/
         }
     }
 }

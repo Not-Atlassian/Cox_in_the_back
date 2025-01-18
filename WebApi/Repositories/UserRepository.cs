@@ -73,6 +73,10 @@ namespace WebApi.Repositories
                     (tma, user) => user)
                 .ToListAsync();
         }
+        public async Task<User> GetUserByName(string name)
+        {
+            return await _context.Users.Where(u => u.Username == name).FirstAsync();
+        }
     }
 
 }

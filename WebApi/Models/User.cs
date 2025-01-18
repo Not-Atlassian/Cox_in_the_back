@@ -9,6 +9,8 @@ public partial class User
 
     public string Username { get; set; } = null!;
 
+    public string Password { get; set; } = string.Empty!;
+
 
     [System.Text.Json.Serialization.JsonIgnore]
     public virtual ICollection<Story> Stories { get; set; } = new List<Story>();

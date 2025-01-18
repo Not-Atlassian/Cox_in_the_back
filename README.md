@@ -94,11 +94,11 @@ After setting up the database and applying migrations, you can insert mock data 
 
 ```sql
 -- Adding mock data for Users
-INSERT INTO Users (username) VALUES
-('Alice'),
-('Bob'),
-('Charlie'),
-('Diana');
+INSERT INTO Users (username, Password) VALUES
+('Alice', 'pass1'),
+('Bob', 'pass2'),
+('Charlie', 'pass3'),
+('Diana', 'pass4');
 
 -- Adding mock data for Teams
 INSERT INTO Teams (team_name, team_description, team_lead_id) VALUES
